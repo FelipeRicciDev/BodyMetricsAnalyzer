@@ -1,16 +1,18 @@
-﻿namespace API.Services;
+﻿namespace API.Services.Pdf;
 
 public sealed class PdfImageExtractor
 {
-    public List<Bitmap> Extract(IFormFile pdfFile)
+    #region PDF Extraction
+    [SupportedOSPlatform("windows")]
+    public List<Bitmap> ExtractImages(Stream pdfStream)
     {
-        using var stream = new MemoryStream();
-        pdfFile.CopyTo(stream);
+        using var memory = new MemoryStream();
+        pdfStream.CopyTo(memory);
 
         var images = new List<Bitmap>();
 
         using var reader = DocLib.Instance.GetDocReader(
-            stream.ToArray(),
+            memory.ToArray(),
             new PageDimensions(3000, 3000));
 
         for (int i = 0; i < reader.GetPageCount(); i++)
@@ -21,7 +23,10 @@ public sealed class PdfImageExtractor
 
         return images;
     }
+    #endregion
 
+    #region Bitmap Creation
+    [SupportedOSPlatform("windows")]
     private static Bitmap CreateBitmap(IPageReader page)
     {
         var bitmap = new Bitmap(
@@ -41,4 +46,5 @@ public sealed class PdfImageExtractor
 
         return bitmap;
     }
+    #endregion
 }

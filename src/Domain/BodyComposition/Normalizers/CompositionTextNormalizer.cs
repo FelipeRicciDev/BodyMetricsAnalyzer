@@ -1,9 +1,8 @@
-﻿using System.Text.RegularExpressions;
-
-namespace Domain.BodyComposition.Normalizers;
+﻿namespace Domain.BodyComposition.Normalizers;
 
 public static class CompositionTextNormalizer
 {
+    #region OCR Text Normalization
     public static string NormalizeOcrText(string text)
     {
         text = text.ToLowerInvariant();
@@ -55,4 +54,5 @@ public static class CompositionTextNormalizer
             _ => $"{digits}%"
         };
     }
+    #endregion
 }

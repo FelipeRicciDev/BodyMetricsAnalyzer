@@ -14,34 +14,15 @@
 		<PackageReference Include="Tesseract" Version="5.2.0" />
 		<PackageReference Include="Tesseract.Drawing" Version="5.2.0" />
 	</ItemGroup>
+	
+	<ItemGroup>
+		<Content Include="tessdata\**\*">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Domain\Domain.csproj" />
-		<ProjectReference Include="..\Infrastructure.Data.Mongo\Infrastructure.Data.Mongo.csproj" />
-		<ProjectReference Include="..\Infrastructure.Data.Query\Infrastructure.Data.Query.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Remove="C:\Users\Felipe\.nuget\packages\tesseract\5.2.0\build\\..\x64\tesseract50.dll" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Remove="C:\Users\Felipe\.nuget\packages\tesseract\5.2.0\build\\..\x64\tesseract50.dll" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Remove="C:\Users\Felipe\.nuget\packages\tesseract\5.2.0\build\\..\x64\tesseract50.dll" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Remove="C:\Users\Felipe\.nuget\packages\tesseract\5.2.0\build\\..\x64\tesseract50.dll" />
-		<None Remove="tessdata\por.traineddata" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Include="tessdata\**">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
 	</ItemGroup>
 
 </Project>

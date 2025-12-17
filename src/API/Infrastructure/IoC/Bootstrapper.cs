@@ -5,7 +5,6 @@ public static class Bootstrapper
     public static IServiceCollection Inject(this IServiceCollection services, IConfiguration configuration)
     {
         InjectMediator(services);
-        //InjectRepositories(services);
         InjectApplicationServices(services);
 
         return services;
@@ -15,8 +14,7 @@ public static class Bootstrapper
     {
         var assemblies = new Assembly[]
         {
-            typeof(ProcessBodyMetricsFilesCommandHandler).Assembly,
-            typeof(AnalyzeBodyMetricsCommandHandler).Assembly
+            typeof(CompareBodyCompositionCommandHandler).Assembly
         };
 
         services.AddMediatR(cfg =>
@@ -29,15 +27,11 @@ public static class Bootstrapper
 
     public static void InjectApplicationServices(IServiceCollection services)
     {
-        services.AddScoped<PdfImageExtractor>();
-        services.AddScoped<OcrService>();
-    }
+        //Interface
+        services.AddScoped<IPdfTextExtractor, PdfTextOcrExtractor>();
 
-    //public static void InjectRepositories(IServiceCollection services)
-    //{
-    //    services.AddSingleton<IEntityRepository>(sp =>
-    //    {
-    //        //return new EntityRepository("entity");
-    //    });
-    //}
+        //Service
+        services.AddScoped<OcrService>();
+        services.AddScoped<PdfImageExtractor>();
+    }
 }

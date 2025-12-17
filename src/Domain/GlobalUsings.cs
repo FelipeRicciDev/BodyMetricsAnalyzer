@@ -1,2 +1,9 @@
-﻿global using MediatR;
-global using Domain.Records;
+﻿global using Domain.BodyComposition.Normalizers;
+global using Domain.BodyComposition.Parsers;
+global using Domain.BodyComposition.Patterns;
+global using Domain.BodyComposition.Sections;
+global using Domain.Records.Composition;
+global using Domain.Records.Report;
+global using System.Globalization;
+global using System.Text.RegularExpressions;
+global using Domain.Records.Score;

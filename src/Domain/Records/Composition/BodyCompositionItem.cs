@@ -1,4 +1,4 @@
-﻿namespace Domain.Records;
+﻿namespace Domain.Records.Composition;
 
 public class BodyCompositionItem
 {
