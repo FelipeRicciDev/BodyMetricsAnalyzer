@@ -1,0 +1,18 @@
+<Solution>
+  <Folder Name="/1 - Presentation/">
+    <Project Path="src/API/API.csproj" />
+  </Folder>
+  <Folder Name="/2 - Domain/">
+    <Project Path="src/Domain/Domain.csproj" />
+  </Folder>
+  <Folder Name="/3 - Infrastructure/">
+    <Project Path="src/Infrastructure.Data.Mongo/Infrastructure.Data.Mongo.csproj" />
+    <Project Path="src/Infrastructure.Data.Query/Infrastructure.Data.Query.csproj" Id="76b5b0d7-94b3-4ba4-8025-4202a62f0d5d" />
+    <Project Path="src/Infrastructure.Service/Infrastructure.Service.csproj" />
+  </Folder>
+  <Folder Name="/4 - CrossCutting/">
+    <Project Path="src/CrossCutting.Configuration/CrossCutting.Configuration.csproj" />
+    <Project Path="src/CrossCutting.Exception/CrossCutting.Exception.csproj" />
+  </Folder>
+  <Folder Name="/5 - Test/" />
+</Solution>
