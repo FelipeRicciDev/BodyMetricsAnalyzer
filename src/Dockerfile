@@ -18,7 +18,9 @@ RUN apt-get update && apt-get install -y \
     tesseract-ocr \
     libleptonica-dev \
     libtesseract-dev \
-    && cp /usr/lib/x86_64-linux-gnu/libleptonica.so.5 /usr/lib/libleptonica-1.82.0.so \
+    && LEPT_LIB=$(ldconfig -p | grep leptonica | head -n 1 | awk '{print $NF}') \
+    && echo "Leptonica found at: $LEPT_LIB" \
+    && cp "$LEPT_LIB" /usr/lib/libleptonica-1.82.0.so \
     && ldconfig \
     && rm -rf /var/lib/apt/lists/*
 
