@@ -1,7 +1,7 @@
 ﻿namespace API.Application.BodyComposition.Commands;
 
-public sealed record CompareBodyCompositionCommand
+public sealed class CompareBodyCompositionCommand
     : IRequest<BodyCompositionComparisonResponse>
 {
-    public List<IFormFile> PdfFiles { get; init; } = [];
+    public List<IFormFile> PdfFiles { get; set; } = [];
 }
