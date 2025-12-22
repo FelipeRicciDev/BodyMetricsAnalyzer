@@ -6,7 +6,6 @@ Environment.SetEnvironmentVariable(
 );
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -27,25 +26,21 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "Template API",
+        Title = "Body Metrics Analyzer API",
         Version = "v1",
-        Description = "API padrão baseada em template com MediatR e MongoDB"
+        Description = "API para análise e comparação de métricas corporais"
     });
 });
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Template API v1");
-        c.RoutePrefix = "swagger";
-    });
-}
-
-app.UseHttpsRedirection();
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Body Metrics Analyzer API v1");
+    c.RoutePrefix = "swagger";
+});
+app.UseRouting();
 app.UseCors("AllowAll");
 app.UseAuthorization();
 app.MapControllers();

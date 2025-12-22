@@ -4,5 +4,5 @@ public sealed record BodyCompositionItemComparison
 (
     decimal OldValue,
     decimal NewValue,
-    decimal Diference
+    decimal Difference
 );

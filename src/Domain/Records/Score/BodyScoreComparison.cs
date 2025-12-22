@@ -4,5 +4,5 @@ public sealed record BodyScoreComparison
 (
     int OldScore,
     int NewScore,
-    int Diference
+    int Difference
 );

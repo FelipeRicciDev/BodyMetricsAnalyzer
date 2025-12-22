@@ -22,7 +22,7 @@ public static class BodyCompositionComparator
             new BodyScoreComparison(
                 OldScore: older.Score.Pontuacao,
                 NewScore: newer.Score.Pontuacao,
-                Diference: newer.Score.Pontuacao - older.Score.Pontuacao
+                Difference: newer.Score.Pontuacao - older.Score.Pontuacao
             )
         );
     }
@@ -37,7 +37,7 @@ public static class BodyCompositionComparator
         return new BodyCompositionItemComparison(
             OldValue: oldValue,
             NewValue: newValue,
-            Diference: newValue - oldValue
+            Difference: newValue - oldValue
         );
     }
 }
