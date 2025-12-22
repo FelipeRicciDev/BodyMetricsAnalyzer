@@ -14,11 +14,9 @@ RUN dotnet publish API/API.csproj -c Release -o /out
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-jammy
 WORKDIR /app
 
-# Dependências nativas compatíveis com Tesseract.NET
+# 🔥 SOMENTE o Tesseract CLI (nada de Leptonica)
 RUN apt-get update && apt-get install -y \
     tesseract-ocr \
-    libleptonica-dev \
-    libtesseract-dev \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=build /out .
@@ -26,6 +24,7 @@ COPY API/tessdata ./tessdata
 
 ENV TESSDATA_PREFIX=/app/tessdata
 ENV ASPNETCORE_URLS=http://+:8080
+
 EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "BodyMetricsAnalyzer.Api.dll"]

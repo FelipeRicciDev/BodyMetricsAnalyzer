@@ -1,26 +1,39 @@
-﻿namespace API.Services.Ocr;
+﻿using System.Diagnostics;
+
+namespace API.Services.Ocr;
 
 public sealed class OcrService
 {
-    private const string Language = "por";
-
-    private readonly string _tessdataPath =
-        Path.Combine(AppContext.BaseDirectory, "tessdata");
-
     public string ReadText(Stream imageStream)
     {
-        using var engine = new TesseractEngine(
-            _tessdataPath,
-            Language,
-            EngineMode.LstmOnly
-        );
+        var tempImage = Path.GetTempFileName() + ".png";
+        var tempOut = Path.GetTempFileName();
 
-        using var ms = new MemoryStream();
-        imageStream.CopyTo(ms);
+        try
+        {
+            using (var fs = File.Create(tempImage))
+                imageStream.CopyTo(fs);
 
-        using var pix = Pix.LoadFromMemory(ms.ToArray());
-        using var page = engine.Process(pix);
+            var psi = new ProcessStartInfo
+            {
+                FileName = "tesseract",
+                Arguments = $"{tempImage} {tempOut} -l eng",
+                RedirectStandardError = true,
+                RedirectStandardOutput = true,
+                UseShellExecute = false
+            };
 
-        return page.GetText();
+            using var process = Process.Start(psi)!;
+            process.WaitForExit();
+
+            return File.Exists(tempOut + ".txt")
+                ? File.ReadAllText(tempOut + ".txt")
+                : string.Empty;
+        }
+        finally
+        {
+            if (File.Exists(tempImage)) File.Delete(tempImage);
+            if (File.Exists(tempOut + ".txt")) File.Delete(tempOut + ".txt");
+        }
     }
 }
