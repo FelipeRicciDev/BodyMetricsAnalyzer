@@ -3,8 +3,8 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 COPY . .
-RUN dotnet restore BodyMetricsAnalyzer.sln
-RUN dotnet publish BodyMetricsAnalyzer.sln -c Release -o /out
+RUN dotnet restore BodyMetricsAnalyzer.slnx
+RUN dotnet publish BodyMetricsAnalyzer.slnx -c Release -o /out
 
 # Etapa 2: runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
