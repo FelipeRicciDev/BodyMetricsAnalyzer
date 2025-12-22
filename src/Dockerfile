@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y \
     tesseract-ocr \
     libleptonica-dev \
     libtesseract-dev \
+    && ln -s /usr/lib/x86_64-linux-gnu/libleptonica.so.5 /usr/lib/x86_64-linux-gnu/libleptonica-1.82.0.so \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=build /out .
