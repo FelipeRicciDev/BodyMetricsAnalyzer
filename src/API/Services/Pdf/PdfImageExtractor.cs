@@ -13,21 +13,18 @@ public sealed class PdfImageExtractor
             memory.ToArray(),
             new PageDimensions(2000, 2000));
 
-        for (int i = 0; i < reader.GetPageCount(); i++)
+        using var page = reader.GetPageReader(0);
+
+        var image = CreateImage(page);
+
+        var imageStream = new MemoryStream();
+        image.SaveAsJpeg(imageStream, new JpegEncoder
         {
-            using var page = reader.GetPageReader(i);
+            Quality = 75
+        });
+        imageStream.Position = 0;
 
-            var image = CreateImage(page);
-
-            var imageStream = new MemoryStream();
-            image.SaveAsJpeg(imageStream, new JpegEncoder
-            {
-                Quality = 75
-            });
-            imageStream.Position = 0;
-
-            images.Add(imageStream);
-        }
+        images.Add(imageStream);
 
         return images;
     }
