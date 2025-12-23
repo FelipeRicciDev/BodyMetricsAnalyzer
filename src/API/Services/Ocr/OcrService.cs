@@ -9,6 +9,11 @@ public sealed class OcrService
         var tempImage = Path.GetTempFileName() + ".png";
         var tempOut = Path.GetTempFileName();
 
+        var tesseractExe =
+            OperatingSystem.IsWindows()
+                ? @"C:\Program Files\Tesseract-OCR\tesseract.exe"
+                : "tesseract";
+
         try
         {
             using (var fs = File.Create(tempImage))
@@ -16,11 +21,12 @@ public sealed class OcrService
 
             var psi = new ProcessStartInfo
             {
-                FileName = "tesseract",
+                FileName = tesseractExe,
                 Arguments = $"{tempImage} {tempOut} -l eng",
                 RedirectStandardError = true,
                 RedirectStandardOutput = true,
-                UseShellExecute = false
+                UseShellExecute = false,
+                CreateNoWindow = true
             };
 
             using var process = Process.Start(psi)!;
@@ -32,8 +38,11 @@ public sealed class OcrService
         }
         finally
         {
-            if (File.Exists(tempImage)) File.Delete(tempImage);
-            if (File.Exists(tempOut + ".txt")) File.Delete(tempOut + ".txt");
+            if (File.Exists(tempImage))
+                File.Delete(tempImage);
+
+            if (File.Exists(tempOut + ".txt"))
+                File.Delete(tempOut + ".txt");
         }
     }
 }

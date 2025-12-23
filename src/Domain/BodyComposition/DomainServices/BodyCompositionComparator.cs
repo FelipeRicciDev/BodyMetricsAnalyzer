@@ -31,13 +31,34 @@ public static class BodyCompositionComparator
         BodyCompositionItem older,
         BodyCompositionItem newer)
     {
-        var oldValue = decimal.Parse(older.MedicaoKg, CultureInfo.InvariantCulture);
-        var newValue = decimal.Parse(newer.MedicaoKg, CultureInfo.InvariantCulture);
+        var oldValue = ParseDecimalSafe(older.MedicaoKg);
+        var newValue = ParseDecimalSafe(newer.MedicaoKg);
 
         return new BodyCompositionItemComparison(
             OldValue: oldValue,
             NewValue: newValue,
             Difference: newValue - oldValue
         );
+    }
+
+    private static decimal ParseDecimalSafe(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return 0m;
+
+        value = value
+            .Replace("kg", "", StringComparison.OrdinalIgnoreCase)
+            .Replace("%", "")
+            .Replace(",", ".")
+            .Trim();
+
+        return decimal.TryParse(
+            value,
+            NumberStyles.Any,
+            CultureInfo.InvariantCulture,
+            out var result
+        )
+            ? result
+            : 0m;
     }
 }
